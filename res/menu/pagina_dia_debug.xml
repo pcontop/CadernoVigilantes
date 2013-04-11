@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/definir_meta"
+            android:title="@string/definir_meta"
+            />
+    <item
+            android:id="@+id/selecione_dia"
+            android:title="@string/selecione_dia"
+            />
+    <item
+            android:id="@+id/sobre"
+            android:title="@string/sobre"
+            />
+
+    <item
+            android:id="@+id/defina_data_atual"
+            android:title="Defina data atual"
+            />
+</menu>

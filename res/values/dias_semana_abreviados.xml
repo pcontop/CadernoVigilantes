@@ -1,0 +1,11 @@
+<resources>
+    <string-array name="dias_semana_abreviados">
+        <item>Su</item>
+        <item>Mo</item>
+        <item>Tu</item>
+        <item>We</item>
+        <item>Th</item>
+        <item>Fr</item>
+        <item>Sa</item>
+    </string-array>
+</resources>

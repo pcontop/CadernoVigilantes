@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Caderno Vigilantes</string>
+    <string name="dataInsercao">Ítens de </string>
+    <string name="entrada">Ítem</string>
+    <string name="pontos">Pts Un</string>
+    <string name="quantidade">Qtd.</string>
+    <string name="total">Pontos Gastos:</string>
+    <string name="alarme_nome">O nome deve ser preenchido.</string>
+    <string name="alarme_quantidade">Apenas valores numéricos para quantidade!</string>
+    <string name="alarme_pontos">Apenas valores numéricos para pontos!</string>
+    <string name="editar">Editar</string>
+    <string name="remover">Remover</string>
+    <string name="emEdicao">Termine a edição antes de remover.</string>
+    <string name="botao_calendario">Ir ao Calendário</string>
+    <string name="definir_meta">Defina Meta Diária.</string>
+    <string name="definir_extra">Defina Pontos Livres.</string>
+    <string name="deletar">Apagar</string>
+    <string name="confirma_delecao">Quer mesmo apagar?</string>
+    <string name="quero">Quero</string>
+    <string name="nao">Não</string>
+    <string name="definir">Definir</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="selecione_dia">Selecione dia da reunião.</string>
+    <string name="marcador">&gt;</string>
+    <string name="limite_pontos_dia">Meta do dia(+Livres):</string>
+    <string name="sobre">Sobre</string>
+    <string name="desenvolvedor">Desenvolvedor:</string>
+    <string name="nome_desenvolvedor">Paulo B. Contopoulos</string>
+    <string name="versao">Versão:</string>
+    <string name="selecione_data">Seleciona Data Atual (Debug)</string>
+    <string name="data_invalida">Limite não alterável para a data.</string>
+    <string name="cadastre_consumo">Cadastre o seu consumo de pontos</string>
+    <string name="gravar">Gravar</string>
+    <string name="zero_pontos">0 pontos</string>
+    <string name="defina_metas">Defina as suas metas!</string>
+    <string name="defina_metas_proxima_semana">Defina as suas metas da próxima semana!</string>
+    <string name="limites_proxima_semana">As metas estão definidas para a próxima semana.</string>
+    <string name="item_salvo">Ítem gravado.</string>
+    <string name="pontos_multiplicados">Pts Tot</string>
+    <string name="adicionar_limite">Não se esqueça de adicionar os limites de pontos para a semana!</string>
+    <string name="semana_adiada">Semana começará em:</string>
+</resources>

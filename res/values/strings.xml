@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Watchers Notebook</string>
+    <string name="dataInsercao">Entries for </string>
+    <string name="entrada">Item</string>
+    <string name="pontos">Pts Un</string>
+    <string name="quantidade">Qtty.</string>
+    <string name="total">Used Points:</string>
+    <string name="alarme_nome">The name must be filled.</string>
+    <string name="alarme_quantidade">Only numerical values for quantity!</string>
+    <string name="alarme_pontos">Only numerical values for points!</string>
+    <string name="editar">Edit</string>
+    <string name="remover">Remove</string>
+    <string name="emEdicao">Finish editing before removing.</string>
+    <string name="botao_calendario">Go to Calendar</string>
+    <string name="definir_meta">Set Daily Goal.</string>
+    <string name="definir_extra">Set Extra Points.</string>
+    <string name="deletar">Delete</string>
+    <string name="confirma_delecao">Do you really want to delete?</string>
+    <string name="quero">I do</string>
+    <string name="nao">No</string>
+    <string name="definir">Set</string>
+    <string name="cancelar">Cancel</string>
+    <string name="selecione_dia">Select the weekday for the reunions.</string>
+    <string name="marcador">&gt;</string>
+    <string name="limite_pontos_dia">Day Goal(+Free Points):</string>
+    <string name="sobre">About</string>
+    <string name="desenvolvedor">Developer:</string>
+    <string name="nome_desenvolvedor">Paulo B. Contopoulos</string>
+    <string name="versao">Version:</string>
+    <string name="selecione_data">Select Current Date (Debug)</string>
+    <string name="data_invalida">Limits cannot be altered for the date.</string>
+    <string name="cadastre_consumo">Fill in your used points</string>
+    <string name="gravar">Save</string>
+    <string name="zero_pontos">0 points</string>
+    <string name="defina_metas">Set your goals!</string>
+    <string name="defina_metas_proxima_semana">Set your goals for the next week!</string>
+    <string name="limites_proxima_semana">The goals are set for next week.</string>
+    <string name="item_salvo">Item saved.</string>
+    <string name="pontos_multiplicados">Pts Tot</string>
+    <string name="adicionar_limite">Don\'t forget to add the point limits for the week!</string>
+    <string name="semana_adiada">Week will begin in:</string>
+</resources>
