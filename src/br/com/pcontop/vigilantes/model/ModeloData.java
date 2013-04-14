@@ -1,7 +1,10 @@
 package br.com.pcontop.vigilantes.model;
 
-import android.util.Log;
 import br.com.pcontop.vigilantes.control.DataAtual;
+import br.com.pcontop.vigilantes.model.bean.DiaSemanaReuniao;
+import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
+import br.com.pcontop.vigilantes.model.bean.LimitePontos;
+import com.google.inject.Inject;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -18,14 +21,12 @@ import java.util.List;
  * Implementação dos métodos do modelo de pontos e datas. Acessa objetos de bases de dados.
  */
 public class ModeloData implements MetodosData {
-    private LimitePontosSQL limitePontosSQL;
-    private EntradaPontosSQL entradaPontosSQL;
-    private DiaSemanaReuniaoSQL diaSemanaReuniaoSQL;
 
-    public ModeloData(DiaSemanaReuniaoSQL diaSemanaReuniaoSQL, EntradaPontosSQL entradaPontosSQL, LimitePontosSQL limitePontosSQL){
-        this.diaSemanaReuniaoSQL = diaSemanaReuniaoSQL;
-        this.entradaPontosSQL = entradaPontosSQL;
-        this.limitePontosSQL = limitePontosSQL;
+    @Inject
+    private MetodosDados modeloDados;
+
+    @Inject
+    public ModeloData(ModeloDados modeloDados){
     }
 
     public Date getDataAtual(){
@@ -33,32 +34,8 @@ public class ModeloData implements MetodosData {
     }
 
     public boolean isDataAtual(Date data){
-        Date dataAtual = getDataAtual();
-        boolean resultado;
-        resultado = compareAnoMesDia(data, dataAtual);
-        return resultado;
+        return compareAnoMesDia(getDataAtual(), data);
     }
-
-    public List<EntradaPontos> getEntradasPontosData(Date data){
-        List<EntradaPontos> entradasPontos = entradaPontosSQL.getLista(data);
-        entradaPontosSQL.close();
-        return entradasPontos;
-    }
-
-    public void deletarEntrada(EntradaPontos entradaPontos) {
-        entradaPontosSQL.removaEntrada(entradaPontos);
-        entradaPontosSQL.close();
-    }
-
-    public void insiraOuAtualize(EntradaPontos entradaPontos) {
-        entradaPontosSQL.inserirOuEditar(entradaPontos);
-        entradaPontosSQL.close();
-    }
-
-    public void definaLimitePontos(LimitePontos limitePontos) throws SemanaOcupadaException, ParseException {
-        insiraOuAtualize(limitePontos);
-    }
-
 
     public boolean isDataEmPeriodoLimiteAlteravel(Date data) {
         try {
@@ -95,7 +72,7 @@ public class ModeloData implements MetodosData {
     }
 
     private boolean isAntesUltimoLimitePontos(Date data) throws ParseException {
-        LimitePontos limitePontos = getUltimoLimitePontos();
+        LimitePontos limitePontos = modeloDados.getUltimoLimitePontos();
         if (limitePontos!=null){
             if (limitePontos.getDataInicio().after(data)) {
                 return true;
@@ -104,48 +81,20 @@ public class ModeloData implements MetodosData {
         return false;
     }
 
-    private LimitePontos getUltimoLimitePontos() throws ParseException {
-        return limitePontosSQL.getUltimoLimitePontos();
-    }
-
-    private void insiraOuAtualize(LimitePontos limitePontos) throws SemanaOcupadaException, ParseException {
-        limitePontosSQL.insiraOuAtualizePontos(limitePontos);
-        Log.v("ControleCaderno", "Adicionando limite:" + limitePontos);
-    }
-
-    public LimitePontos getLimitePontos(Date data) throws ParseException {
-        LimitePontos limitePontos;
-        limitePontos = limitePontosSQL.getLimitePontos(data);
-        return limitePontos;
-    }
-
-    public DiaSemanaReuniao getDiaSemanaReuniao(Date data) throws ParseException {
-        DiaSemanaReuniao diaSemana = diaSemanaReuniaoSQL.getDiaSemanaValido(data);
-        diaSemanaReuniaoSQL.close();
-        return diaSemana;
-    }
-
-    /*
-    public int getDiaSemana(Date data){
-        Calendar calendar = getCalendar(data);
-        return calendar.get(Calendar.DAY_OF_WEEK);
-    }
-    */
-
     public void definaDiaSemanaReuniao(int diaSemana, Date data) throws ParseException {
         //Pega validade: se existir, vai para a próxima reunião. Se não, vai para a anterior.
         Date diaInicioValidade;
-        if (getDiaSemanaReuniao(data)!=null){
+        if (modeloDados.getDiaSemanaReuniao(data) !=null){
             diaInicioValidade = getDataProximaReuniao(data, diaSemana);
         }else {
             diaInicioValidade = getDataReuniaoAnterior(data, diaSemana);
         }
         //Ajusta data fim do Limite Pontos
-        LimitePontos limitePontos = getLimitePontos(data);
+        LimitePontos limitePontos = modeloDados.getLimitePontos(data);
         if (limitePontos!=null){
             limitePontos.setDataFim(diaInicioValidade);
             try {
-                definaLimitePontos(limitePontos);
+            modeloDados.insiraOuAtualizeLimitePontos(limitePontos);
             } catch (SemanaOcupadaException e) {
                 e.printStackTrace();
             }
@@ -153,29 +102,13 @@ public class ModeloData implements MetodosData {
         DiaSemanaReuniao diaSemanaReuniao = new DiaSemanaReuniao();
         diaSemanaReuniao.setInicioValidade(getDataAtual());
         diaSemanaReuniao.setDiaSemana(diaSemana);
-        insiraOuAtualize(diaSemanaReuniao);
-    }
-
-    /*
-    private void apagueDiasReuniaoComValidadeApos(Date diaInicioValidade) {
-        diaSemanaReuniaoSQL.apagueEntradasComValidadeApos(diaInicioValidade);
-    }
-
-    private Date getProximoDia(Date data){
-        Calendar calendar = getCalendar(data);
-        calendar.add(Calendar.DATE, 1);
-        return calendar.getTime();
-    }
-    */
-
-    public void insiraOuAtualize(DiaSemanaReuniao diaSemanaReuniao) throws ParseException {
-        diaSemanaReuniaoSQL.inserirOuAtualizar(diaSemanaReuniao);
+        modeloDados.insiraOuAtualize(diaSemanaReuniao);
     }
 
     public long getPontosExtras(Date data){
         long pontosExtras=0;
         try {
-            LimitePontos limitePontos = getLimitePontos(data);
+            LimitePontos limitePontos = modeloDados.getLimitePontos(data);
             long pontosMaximos = getPontosMaximosDiaContandoExtras(data);
             pontosExtras = pontosMaximos - limitePontos.getPontosDia();
         } catch (ParseException e) {
@@ -185,7 +118,7 @@ public class ModeloData implements MetodosData {
     }
 
     public Date getDataReuniaoAnterior(Date data) throws ParseException {
-        DiaSemanaReuniao diaSemanaReuniao =  getDiaSemanaReuniao(data);
+        DiaSemanaReuniao diaSemanaReuniao = modeloDados.getDiaSemanaReuniao(data);
         if (diaSemanaReuniao==null) {
             return null;
         }
@@ -220,7 +153,7 @@ public class ModeloData implements MetodosData {
     }
 
     public Date getDataProximaReuniao(Date data) throws ParseException {
-        DiaSemanaReuniao diaSemanaReuniao =  getDiaSemanaReuniao(data);
+        DiaSemanaReuniao diaSemanaReuniao = modeloDados.getDiaSemanaReuniao(data);
         if (diaSemanaReuniao==null) {
             return null;
         }
@@ -266,7 +199,7 @@ public class ModeloData implements MetodosData {
             limitePontos.setDataInicio(getDataReuniaoAnteriorMaisDias(data, 1));
             limitePontos.setDataFim(getDataProximaReuniao(data));
         }
-        LimitePontos limitePontosAnterior = getLimitePontosAnterior(data);
+        LimitePontos limitePontosAnterior = modeloDados.getLimitePontosAnterior(data);
         if (limitePontosAnterior!=null){
             limitePontos.setPontosDia(limitePontosAnterior.getPontosDia());
             limitePontos.setPontosLivreSemana(limitePontosAnterior.getPontosLivreSemana());
@@ -274,21 +207,12 @@ public class ModeloData implements MetodosData {
         return limitePontos;
     }
 
-    private LimitePontos getLimitePontosAnterior(Date data) {
-        LimitePontos limitePontos=null;
-        try {
-            limitePontos = limitePontosSQL.getLimitePontosAnterior(data);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return limitePontos;
-    }
 
     public long getPontosMaximosDiaContandoExtras(Date data) {
         long pontosMaximos=0;
         long pontosExtrasConsumidos = 0;
         try {
-            LimitePontos limitePontos = getLimitePontos(data);
+            LimitePontos limitePontos = modeloDados.getLimitePontos(data);
             long pontosExtras = limitePontos.getPontosLivreSemana();
             Date dataInicio = limitePontos.getDataInicio();
             Calendar calendar = getCalendar(dataInicio);
@@ -310,7 +234,7 @@ public class ModeloData implements MetodosData {
     private long pontosExtrasConsumidosData(Date data) {
         long pontosExtrasConsumidos =0;
         try {
-            LimitePontos limitePontos = getLimitePontos(data);
+            LimitePontos limitePontos = modeloDados.getLimitePontos(data);
             long limitePontosDia = limitePontos.getPontosDia();
             limitePontosDia=limitePontosDia<0?0:limitePontosDia;
             long pontosDia = (long)getPontosDia(data);
@@ -329,9 +253,9 @@ public class ModeloData implements MetodosData {
     }
 
     public double getPontosDia(Date data) {
-        List<EntradaPontos> entradasPontoDia= getEntradasPontosData(data);
+        List<EntradaPontos> entradasPontoDmodeloDados= modeloDados.getEntradasPontosData(data);
         double pontos = 0;
-        for (EntradaPontos entradaPontos: entradasPontoDia){
+        for (EntradaPontos entradaPontos: modeloDados.getEntradasPontosData(data)){
             pontos+= entradaPontos.getPontosMultiplicados();
         }
         return pontos;
@@ -339,7 +263,7 @@ public class ModeloData implements MetodosData {
 
     public boolean isInicioLimite(Date data){
         try {
-            LimitePontos limitePontos = getLimitePontos(data);
+            LimitePontos limitePontos = modeloDados.getLimitePontos(data);
             return compareAnoMesDia(limitePontos.getDataInicio(),data);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -349,7 +273,7 @@ public class ModeloData implements MetodosData {
 
     public boolean isFinalLimite(Date data){
         try {
-            LimitePontos limitePontos = getLimitePontos(data);
+            LimitePontos limitePontos = modeloDados.getLimitePontos(data);
             return compareAnoMesDia(limitePontos.getDataFim(),data);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -377,7 +301,7 @@ public class ModeloData implements MetodosData {
         GregorianCalendar calendar = getCalendar(data);
         calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DATE));
         try {
-            DiaSemanaReuniao diaSemanaReuniao = getDiaSemanaReuniao(calendar.getTime());
+            DiaSemanaReuniao diaSemanaReuniao = modeloDados.getDiaSemanaReuniao(calendar.getTime());
             if (diaSemanaReuniao!=null){
                 retorno = diaSemanaReuniao.getDiaSemana();
             }
@@ -385,10 +309,6 @@ public class ModeloData implements MetodosData {
             e.printStackTrace();
         }
         return retorno;
-    }
-
-    public void atualizeEntradaPontos(EntradaPontos entradaPontos) {
-        insiraOuAtualize(entradaPontos);
     }
 
 }

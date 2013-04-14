@@ -38,6 +38,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" exported="" name="GoogleAdMobAdsSdk-6.0.1" level="project" />
+    <orderEntry type="library" name="poi-3.9" level="project" />
   </component>
 </module>
 

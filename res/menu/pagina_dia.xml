@@ -10,6 +10,10 @@
             android:title="@string/selecione_dia"
             />
     <item
+            android:id="@+id/exportar_excel"
+            android:title="@string/exportar_excel"
+            />
+    <item
             android:id="@+id/sobre"
             android:title="@string/sobre"
             />

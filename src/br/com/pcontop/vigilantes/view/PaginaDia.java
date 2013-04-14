@@ -8,8 +8,12 @@ import android.view.*;
 import android.widget.*;
 import br.com.pcontop.vigilantes.R;
 import br.com.pcontop.vigilantes.control.*;
-import br.com.pcontop.vigilantes.model.EntradaPontos;
-import br.com.pcontop.vigilantes.model.LimitePontos;
+import br.com.pcontop.vigilantes.control.comportamento.ComportamentoPaginaDia;
+import br.com.pcontop.vigilantes.control.validacao.ValidacaoCampo;
+import br.com.pcontop.vigilantes.control.validacao.ValidacaoCampoDoubleNaoVazio;
+import br.com.pcontop.vigilantes.control.validacao.ValidacaoCampoTextoNaoVazio;
+import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
+import br.com.pcontop.vigilantes.model.bean.LimitePontos;
 import com.google.inject.Inject;
 import roboguice.inject.InjectView;
 
@@ -83,14 +87,9 @@ public class PaginaDia extends PaginaSistema implements Toaster
     }
 
     private void inicializePagina() {
-        inicializeControleCaderno();
         getDataCadernoFromIntent();
         apresenteData();
         inicializeComportamentosPagina();
-    }
-
-    private void inicializeControleCaderno() {
-        //controleCaderno = FabricaControleCaderno.getControleCaderno(this);
     }
 
     private void chequeSeDiaSemanaReuniaoEstaDefinido() {
@@ -118,7 +117,7 @@ public class PaginaDia extends PaginaSistema implements Toaster
 
 
     private void toast(String mensagem){
-        controleCaderno.toast(mensagem, this);
+        controleCaderno.toast(mensagem);
     }
 
     private void inicializeComportamentosPagina() {
@@ -362,6 +361,7 @@ public class PaginaDia extends PaginaSistema implements Toaster
         apresenteLimitesPontos();
     }
 
+    //TODO - Migrar lógica para controle.
     private void apresenteLimitesPontos(){
         try {
             LimitePontos limitePontos;
@@ -504,7 +504,6 @@ public class PaginaDia extends PaginaSistema implements Toaster
         return true;
 
     }
-    
 
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater menuInflater = getMenuInflater();
@@ -530,8 +529,15 @@ public class PaginaDia extends PaginaSistema implements Toaster
         if (menuItem.getItemId()==R.id.defina_data_atual){
             forceDataAtual();
         }
+        if (menuItem.getItemId()==R.id.exportar_excel){
+            exporteExcel();
+        }
 
         return false;
+    }
+
+    private void exporteExcel() {
+        controleCaderno.exporteExcelEntradasPontos();
     }
 
     private void busqueLimitePontos() {
@@ -581,6 +587,10 @@ public class PaginaDia extends PaginaSistema implements Toaster
 
     @Override
     public void toast(int messageId) {
-        toast(getString(R.string.item_salvo));
+        toast(getString(messageId));
+    }
+
+    public ControleCaderno getControleCaderno(){
+        return controleCaderno;
     }
 }

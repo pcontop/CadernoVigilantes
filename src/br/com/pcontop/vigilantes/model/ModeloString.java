@@ -1,7 +1,10 @@
 package br.com.pcontop.vigilantes.model;
 
-import java.util.ArrayList;
+import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
+import com.google.inject.Inject;
+
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,37 +14,22 @@ import java.util.HashSet;
  * To change this template use File | Settings | File Templates.
  */
 public class ModeloString implements MetodosString {
-    private DiaSemanaReuniaoSQL diaSemanaReuniaoSQL;
-    private EntradaPontosSQL entradaPontosSQL;
-    private LimitePontosSQL limitePontosSQL;
+    @Inject
+    private MetodosDados metodosDados;
 
-    public ModeloString(DiaSemanaReuniaoSQL diaSemanaReuniaoSQL, EntradaPontosSQL entradaPontosSQL, LimitePontosSQL limitePontosSQL) {
-        this.diaSemanaReuniaoSQL = diaSemanaReuniaoSQL;
-        this.entradaPontosSQL = entradaPontosSQL;
-        this.limitePontosSQL = limitePontosSQL;
-
+    @Inject
+    public ModeloString() {
     }
 
     @Override
     public String[] pesquiseNomesEntradasPontos() {
-        ArrayList<EntradaPontos> entradas = pesquiseTodasEntradas();
+        List<EntradaPontos> entradas = metodosDados.pesquiseTodasEntradas();
         HashSet<String> setNomesEstradas = new HashSet<String>();
         String[] nomesEntradas = new String[1];
         for (EntradaPontos entrada:entradas){
            setNomesEstradas.add(entrada.getNome());
         }
         return setNomesEstradas.toArray(nomesEntradas);
-    }
-
-    @Override
-    public ArrayList<EntradaPontos> pesquiseEntradasPontosPorNome(String filtroEntrada) {
-        ArrayList<EntradaPontos> entradas = entradaPontosSQL.pesquiseEntradasComNome(filtroEntrada);
-        return entradas;
-    }
-
-    public ArrayList<EntradaPontos> pesquiseTodasEntradas(){
-        ArrayList<EntradaPontos> entradas = entradaPontosSQL.pesquiseTodasEntradas();
-        return entradas;
     }
 
 }

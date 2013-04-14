@@ -1,15 +1,10 @@
 package br.com.pcontop.vigilantes.model;
 
-import android.content.Context;
-import br.com.pcontop.vigilantes.model.DiaSemanaReuniao;
-import br.com.pcontop.vigilantes.model.EntradaPontos;
-import br.com.pcontop.vigilantes.model.LimitePontos;
-import br.com.pcontop.vigilantes.model.SemanaOcupadaException;
+import br.com.pcontop.vigilantes.model.bean.LimitePontos;
 
 import java.text.ParseException;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,25 +13,13 @@ import java.util.List;
  * Time: 20:00
  * Define os métodos necessários para se lidar com os dados de pontuação por data. Retorna objetos de EntradaPontos, LimitePontos, DiaSemanaReuniao.
  */
-public interface MetodosData {
+public interface  MetodosData {
 
     Date getDataAtual();
 
     boolean isDataAtual(Date data);
 
-    List<EntradaPontos> getEntradasPontosData(Date dia);
-
-    void deletarEntrada(EntradaPontos entradaPontos);
-
-    void definaLimitePontos(LimitePontos limitePontos) throws SemanaOcupadaException, ParseException;
-
-    void atualizeEntradaPontos(EntradaPontos entradaPontos);
-
     boolean isDataEmPeriodoLimiteAlteravel(Date data);
-
-    LimitePontos getLimitePontos(Date data) throws ParseException;
-
-    DiaSemanaReuniao getDiaSemanaReuniao(Date data) throws ParseException;
 
     void definaDiaSemanaReuniao(int diaSemana, Date data) throws ParseException;
 

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import br.com.pcontop.vigilantes.R;
 import br.com.pcontop.vigilantes.control.ControleCaderno;
-import br.com.pcontop.vigilantes.control.MostreAlerta;
+import br.com.pcontop.vigilantes.control.popups.MostreAlerta;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,7 +26,7 @@ public class MostreSobre extends MostreAlerta {
     @Override
     public void executar(){
         AlertDialog alertDialog;
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.sobre,
                 null);
         TextView viewVersao = (TextView) layout.findViewById(R.id.sobre_versao);

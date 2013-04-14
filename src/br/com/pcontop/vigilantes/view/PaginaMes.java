@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.pcontop.vigilantes.R;
 import br.com.pcontop.vigilantes.control.*;
+import br.com.pcontop.vigilantes.control.comportamento.ComportamentoPaginaMes;
 import com.google.inject.Inject;
 import roboguice.inject.InjectView;
 
@@ -101,7 +102,8 @@ public class PaginaMes extends PaginaSistema {
     int[] ordemSemana;
     int diaSemanaReuniaoMes;
 
-    @Inject ComportamentoPaginaMes comportamentoPaginaMes;
+    @Inject
+    ComportamentoPaginaMes comportamentoPaginaMes;
 
     /** Called when the activity is first created. */
     @Override
@@ -359,7 +361,7 @@ public class PaginaMes extends PaginaSistema {
     }
 
     private void toast(String mensagem){
-        controleCaderno.toast(mensagem, this);
+        controleCaderno.toast(mensagem);
     }
 
     public void activate(){

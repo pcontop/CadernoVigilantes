@@ -40,4 +40,10 @@
     <string name="pontos_multiplicados">Pts Tot</string>
     <string name="adicionar_limite">Don\'t forget to add the point limits for the week!</string>
     <string name="semana_adiada">Week will begin in:</string>
+    <string name="erro_geracao_planilha">Error in exporting the spreadsheet. Please contact the developer.</string>
+    <string name="erro_acesso_diretorio">Error in accessing the export directory. Please contact the developer.</string>
+    <string name="nome_arquivo_excel">WatchersNotebook</string>
+    <string name="erro_abertura_dia_semana">Error in opening the reunion weekday.</string>
+    <string name="exportar_excel">Export Excel</string>
+    <string name="excel_gerado">Excel exported to: </string>
 </resources>

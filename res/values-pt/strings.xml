@@ -40,4 +40,10 @@
     <string name="pontos_multiplicados">Pts Tot</string>
     <string name="adicionar_limite">Não se esqueça de adicionar os limites de pontos para a semana!</string>
     <string name="semana_adiada">Semana começará em:</string>
+    <string name="erro_geracao_planilha">Erro na geração da planilha. Favor contatar o desenvolvedor.</string>
+    <string name="erro_acesso_diretorio">Erro no acesso ao diretório de gravação. Favor contatar o desenvolvedor.</string>
+    <string name="nome_arquivo_excel">CadernoVigilantes</string>
+    <string name="erro_abertura_dia_semana">Erro na abertura do dia da semana da reuniao.</string>
+    <string name="exportar_excel">Exportar Excel</string>
+    <string name="excel_gerado">Excel exportado para: </string>
 </resources>

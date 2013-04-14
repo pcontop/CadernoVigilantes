@@ -7,12 +7,10 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.pcontop.vigilantes.R;
-import br.com.pcontop.vigilantes.model.EntradaPontos;
+import br.com.pcontop.vigilantes.control.ConversaoLocale;
+import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by IntelliJ IDEA.

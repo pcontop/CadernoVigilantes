@@ -1,5 +1,6 @@
 package br.com.pcontop.vigilantes.control;
 
+import br.com.pcontop.vigilantes.control.modulo.ModuloCaderno;
 import com.google.inject.Module;
 import roboguice.application.RoboApplication;
 
