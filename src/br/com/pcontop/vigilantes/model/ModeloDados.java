@@ -85,5 +85,9 @@ public class ModeloDados implements MetodosDados {
         return entradaPontosSQL.pesquiseTodasEntradas();
     }
 
+    public void removaTabelaEntradaPontos(){
+        entradaPontosSQL.removaTabela();
+    }
+
 
 }

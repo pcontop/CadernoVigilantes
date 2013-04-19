@@ -39,4 +39,6 @@ public interface MetodosDados {
 
     List<EntradaPontos> pesquiseTodasEntradas();
 
+    void removaTabelaEntradaPontos();
+
 }

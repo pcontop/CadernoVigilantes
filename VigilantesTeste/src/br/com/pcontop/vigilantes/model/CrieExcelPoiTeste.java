@@ -31,6 +31,7 @@ public class CrieExcelPoiTeste extends ActivityInstrumentationTestCase2<PaginaDi
     ControleCaderno controleCaderno;
     MetodosDados metodosDados;
     List<EntradaPontos> entradas;
+    CriaEntradasTeste criaEntradasTeste;
 
     public CrieExcelPoiTeste() {
         super("br.com.pcontop.vigilantes", PaginaDia.class);
@@ -58,79 +59,12 @@ public class CrieExcelPoiTeste extends ActivityInstrumentationTestCase2<PaginaDi
         controleCaderno = getActivity().getControleCaderno();
         crieExcel = new CrieExcelPoiXls1(new DiretoriosArquivosAndroid(controleCaderno.getContext()));
         metodosDados = controleCaderno.getMetodosDados();
-        entradas = crieEntradasPontos();
+        criaEntradasTeste = new CriaEntradasTeste();
+        entradas = criaEntradasTeste.crieEntradasPontos();
         //Log.v("CrieExcelPoiTeste Estado de gravação no externo: " , isExternalStorageWritable()+ "");
 
     }
 
-    private Date parseDate(String date){
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        try {
-            return df.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            return null;
-        }
-    }
-
-    private ArrayList<EntradaPontos> crieEntradasPontos(){
-
-        Date date = parseDate("15-08-1974");
-        ArrayList<EntradaPontos> entradasPontos = new ArrayList<EntradaPontos>();
-        EntradaPontos entradaPontos = new EntradaPontos();
-        entradaPontos.setDataInsercao(date);
-        entradaPontos.setNome("Feijão");
-        entradaPontos.setQuantidade(1.1);
-        entradaPontos.setPontos(2.0);
-        entradaPontos.setId(2);
-        entradasPontos.add(entradaPontos);
-
-        entradaPontos = new EntradaPontos();
-        entradaPontos.setDataInsercao(date);
-        entradaPontos.setNome("Arroz");
-        entradaPontos.setQuantidade(3.5);
-        entradaPontos.setPontos(1.1);
-        entradasPontos.add(entradaPontos);
-        entradaPontos.setId(1);
-
-        date = parseDate("15-09-1974");
-
-        entradaPontos = new EntradaPontos();
-        entradaPontos.setDataInsercao(date);
-        entradaPontos.setNome("Feijão");
-        entradaPontos.setQuantidade(3.1);
-        entradaPontos.setPontos(2.0);
-        entradaPontos.setId(2);
-        entradasPontos.add(entradaPontos);
-
-        entradaPontos = new EntradaPontos();
-        entradaPontos.setDataInsercao(date);
-        entradaPontos.setNome("Arroz");
-        entradaPontos.setQuantidade(4.5);
-        entradaPontos.setPontos(1.1);
-        entradasPontos.add(entradaPontos);
-        entradaPontos.setId(1);
-
-        date = parseDate("14-08-1974");
-
-        entradaPontos = new EntradaPontos();
-        entradaPontos.setDataInsercao(date);
-        entradaPontos.setNome("Feijão");
-        entradaPontos.setQuantidade(3.1);
-        entradaPontos.setPontos(2.0);
-        entradaPontos.setId(2);
-        entradasPontos.add(entradaPontos);
-
-        entradaPontos = new EntradaPontos();
-        entradaPontos.setDataInsercao(date);
-        entradaPontos.setNome("Arroz");
-        entradaPontos.setQuantidade(4.5);
-        entradaPontos.setPontos(1.1);
-        entradasPontos.add(entradaPontos);
-        entradaPontos.setId(1);
-
-        return entradasPontos;
-    }
 
     @UiThreadTest
     public void testCriacaoPoi(){
@@ -143,7 +77,7 @@ public class CrieExcelPoiTeste extends ActivityInstrumentationTestCase2<PaginaDi
             assertNotNull(ultimaPlanilha);
             assert (ultimaPlanilha.exists());
             Log.v("testCriacaoPoi. Arquivo criado em: ", ultimaPlanilha.getAbsolutePath());
-            Log.v("testCriacaoPoi. Arquivo criado com tamnho: ", ""+ ultimaPlanilha.getTotalSpace());
+            Log.v("testCriacaoPoi. Arquivo criado com tamanho: ", ""+ ultimaPlanilha.getTotalSpace());
         } catch (IOException e) {
             e.printStackTrace();
             assertTrue(false);

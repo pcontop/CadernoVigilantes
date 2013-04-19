@@ -26,9 +26,9 @@ public class ModuloCaderno extends AbstractAndroidModule {
     @Override
     protected void configure() {
         bind(LimitePontosDAO.class).to(LimitePontosDAO1.class);
-        bind(LimitePontosSQL.class).to(LimitePontosProxy.class).asEagerSingleton();
+        bind(LimitePontosSQL.class).to(LimitePontosProxyCache.class).asEagerSingleton();
         bind(EntradaPontosDAO.class).to(EntradaPontosDAO3.class);
-        bind(EntradaPontosSQL.class).to(EntradaPontosProxy.class).asEagerSingleton();
+        bind(EntradaPontosSQL.class).to(EntradaPontosProxyCache.class).asEagerSingleton();
         bind(DiaSemanaReuniaoSQL.class).to(DiaSemanaReuniaoDAO1.class).asEagerSingleton();
         bind(ControleCaderno.class).asEagerSingleton();
         bind(CrieExcel.class).to(CrieExcelPoiXls1.class);

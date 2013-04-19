@@ -1,11 +1,7 @@
 package br.com.pcontop.vigilantes.view;
 
-import android.app.Activity;
-import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.UiThreadTest;
-import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;

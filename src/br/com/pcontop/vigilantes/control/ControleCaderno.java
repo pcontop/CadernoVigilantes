@@ -230,7 +230,7 @@ public class ControleCaderno {
         return metodosData.getPontosDia(dataCaderno);
     }
 
-    public void atualizeEntradaPontos(EntradaPontos entradaPontos) {
+    public void insiraOuAtualizeEntradaPontos(EntradaPontos entradaPontos) {
         metodosDados.insiraOuAtualize(entradaPontos);
     }
 
@@ -272,5 +272,9 @@ public class ControleCaderno {
 
     public Context getContext(){
         return context;
+    }
+
+    public List<EntradaPontos> getTodasEntradasPontos(){
+        return metodosDados.pesquiseTodasEntradas();
     }
 }

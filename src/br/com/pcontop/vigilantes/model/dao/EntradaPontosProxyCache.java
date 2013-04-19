@@ -16,15 +16,15 @@ import java.util.List;
  * Proxy que realiza um cache de EntradaPontos. Até 100 registros consultados e alterados são mantidos em memória no objeto,
  * e após este limite, objetos mais recentes substituem objetos mais antigos.
  */
-public class EntradaPontosProxy implements EntradaPontosSQL {
+public class EntradaPontosProxyCache implements EntradaPontosSQL {
 
     private ArrayList<String> ordemEntrada = new ArrayList<String>();
-    private HashMap<String, List<EntradaPontos>> cacheLimites = new HashMap<String, List<EntradaPontos>>();
+    private HashMap<String, List<EntradaPontos>> cacheEntradas = new HashMap<String, List<EntradaPontos>>();
     private final static int tamanhoCache=100;
     private EntradaPontosDAO entradaPontosDAO;
 
     @Inject
-    public EntradaPontosProxy(EntradaPontosDAO entradaPontosDAO){
+    public EntradaPontosProxyCache(EntradaPontosDAO entradaPontosDAO){
         this.entradaPontosDAO = entradaPontosDAO;
     }
 
@@ -35,17 +35,27 @@ public class EntradaPontosProxy implements EntradaPontosSQL {
 
             if (ordemEntrada.size()>tamanhoCache){
                 String chave = ordemEntrada.get(0);
-                cacheLimites.remove(chave);
+                cacheEntradas.remove(chave);
                 ordemEntrada.remove(chave);
             }
             List<EntradaPontos> listaEntradaPontos = getListaCache(data);
             if (listaEntradaPontos==null){
                 listaEntradaPontos = new ArrayList<EntradaPontos>();
-                cacheLimites.put(dataChave, listaEntradaPontos);
+                cacheEntradas.put(dataChave, listaEntradaPontos);
             }
+            removaEntradaAnteriorSeExistir(listaEntradaPontos, entradaPontos);
             listaEntradaPontos.add(entradaPontos);
             if (!ordemEntrada.contains(dataChave)){
                 ordemEntrada.add(dataChave);
+            }
+        }
+    }
+
+    private void removaEntradaAnteriorSeExistir(List<EntradaPontos> listaEntradaPontos, EntradaPontos entradaPontos) {
+        for (EntradaPontos entradaPontosLista:listaEntradaPontos){
+            if (entradaPontos.getId()==entradaPontosLista.getId()){
+                listaEntradaPontos.remove(entradaPontosLista);
+                return;
             }
         }
     }
@@ -56,7 +66,7 @@ public class EntradaPontosProxy implements EntradaPontosSQL {
 
     private List<EntradaPontos> getListaCache(Date data) {
         String dataChave = formateData(data);
-        return cacheLimites.get(dataChave);
+        return cacheEntradas.get(dataChave);
     }
 
     private boolean estaNoCache(EntradaPontos entradaPontos){
@@ -64,8 +74,9 @@ public class EntradaPontosProxy implements EntradaPontosSQL {
         return list != null && list.contains(entradaPontos);
     }
 
+    /*
     private EntradaPontos getEntradaPontosCache(Long id){
-        for (List<EntradaPontos> list:cacheLimites.values()){
+        for (List<EntradaPontos> list: cacheEntradas.values()){
             for (EntradaPontos entradaPontos:list){
                 if (entradaPontos.getId()==id){
                     return entradaPontos;
@@ -74,6 +85,7 @@ public class EntradaPontosProxy implements EntradaPontosSQL {
         }
         return null;
     }
+    */
 
     @Override
     public long getMaxId() {
@@ -92,7 +104,7 @@ public class EntradaPontosProxy implements EntradaPontosSQL {
 
     private void adicioneCache(Date date, List<EntradaPontos> lista) {
         String dataChave = formateData(date);
-        cacheLimites.put(dataChave,  lista);
+        cacheEntradas.put(dataChave, lista);
     }
 
     @Override
@@ -129,5 +141,10 @@ public class EntradaPontosProxy implements EntradaPontosSQL {
     @Override
     public void close() {
         //Nada
+    }
+
+    public void removaTabela(){
+        entradaPontosDAO.removaTabela();
+        cacheEntradas.clear();
     }
 }

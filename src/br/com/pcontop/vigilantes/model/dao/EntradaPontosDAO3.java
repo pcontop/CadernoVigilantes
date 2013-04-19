@@ -177,11 +177,21 @@ public class EntradaPontosDAO3 extends SQLiteOpenHelper implements EntradaPontos
 
     @Override
     public void insiraOuAtualize(EntradaPontos entradaPontos){
-        if (entradaPontos.getId()>=0){
+        if (entradaPontos.getId()>=0 && existeEntradaPontos(entradaPontos)){
             editarEntrada(entradaPontos);
         }   else {
             inserir(entradaPontos);
         }
+    }
+
+    private boolean existeEntradaPontos(EntradaPontos entradaPontos) {
+        boolean resultado=false;
+        Cursor c = getWritableDatabase().query(TABELA, COLS,"id = ?",new String[]{String.valueOf(entradaPontos.getId())},null,null,null);
+        while (c.moveToNext()){
+            resultado=true;
+        }
+        c.close();
+        return resultado;
     }
 
     public static String formateData(Date data){
@@ -232,5 +242,9 @@ public class EntradaPontosDAO3 extends SQLiteOpenHelper implements EntradaPontos
 
     }
 
+    public void removaTabela(){
+        String ddl = "drop table " + TABELA + ";";
+        getWritableDatabase().execSQL(ddl);
+    }
 
 }

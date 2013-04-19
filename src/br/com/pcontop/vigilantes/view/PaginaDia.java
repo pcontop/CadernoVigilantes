@@ -484,7 +484,7 @@ public class PaginaDia extends PaginaSistema implements Toaster
         entradaPontos.setPontos(numeroPontos);
         entradaPontos.definaDataInsercaoInicial(dataCaderno);
 
-        controleCaderno.atualizeEntradaPontos(entradaPontos);
+        controleCaderno.insiraOuAtualizeEntradaPontos(entradaPontos);
         return true;
     }
 

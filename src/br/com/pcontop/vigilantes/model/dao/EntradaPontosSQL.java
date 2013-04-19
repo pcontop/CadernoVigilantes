@@ -29,4 +29,6 @@ public interface EntradaPontosSQL {
 
     void close();
 
+    void removaTabela();
+
 }

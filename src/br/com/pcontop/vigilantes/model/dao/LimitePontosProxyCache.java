@@ -17,7 +17,7 @@ import java.util.HashMap;
  * Classe de cache para os limites de pontos. 100 limites são guardados, sendo que limites adicionados depois disto irão
  * ocupar o lugar de limites mais antigos.
  */
-public class LimitePontosProxy implements LimitePontosSQL {
+public class LimitePontosProxyCache implements LimitePontosSQL {
 
     private ArrayList<String> ordemEntrada = new ArrayList<String>();
     private HashMap<String, LimitePontos> cacheLimites = new HashMap<String, LimitePontos>();
@@ -25,7 +25,7 @@ public class LimitePontosProxy implements LimitePontosSQL {
     private LimitePontosDAO limitePontosDAO;
 
     @Inject
-    public LimitePontosProxy(LimitePontosDAO limitePontosDAO){
+    public LimitePontosProxyCache(LimitePontosDAO limitePontosDAO){
         this.limitePontosDAO = limitePontosDAO;
     }
 
