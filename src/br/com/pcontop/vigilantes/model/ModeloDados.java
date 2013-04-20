@@ -12,18 +12,22 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Facade para os métodos de acesso a dados dos DAOs.
+ */
 public class ModeloDados implements MetodosDados {
     
-    @Inject
     private LimitePontosSQL limitePontosSQL;
-    @Inject
     private EntradaPontosSQL entradaPontosSQL;
-    @Inject
     private DiaSemanaReuniaoSQL diaSemanaReuniaoSQL;
     
     @Inject
-    public ModeloDados(){
-        
+    public ModeloDados(LimitePontosSQL limitePontosSQL
+                       , EntradaPontosSQL entradaPontosSQL
+                       , DiaSemanaReuniaoSQL diaSemanaReuniaoSQL){
+        this.limitePontosSQL = limitePontosSQL;
+        this.entradaPontosSQL = entradaPontosSQL;
+        this.diaSemanaReuniaoSQL = diaSemanaReuniaoSQL;
     }
 
     public void deletarEntrada(EntradaPontos entradaPontos) {
@@ -81,7 +85,7 @@ public class ModeloDados implements MetodosDados {
         return entradaPontosSQL.pesquiseEntradasComNome(filtroEntrada);
     }
 
-    public List<EntradaPontos> pesquiseTodasEntradas(){
+    public List<EntradaPontos> getTodasEntradas(){
         return entradaPontosSQL.pesquiseTodasEntradas();
     }
 

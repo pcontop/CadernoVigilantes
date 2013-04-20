@@ -10,23 +10,21 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 
 /**
- * Created with IntelliJ IDEA.
+ * Implementação dos métodos de pontos e datas. Acessa objetos de bases de dados.
  * User: Paulo
  * Date: 12/05/12
  * Time: 19:11
- * Implementação dos métodos do modelo de pontos e datas. Acessa objetos de bases de dados.
  */
 public class ModeloData implements MetodosData {
 
-    @Inject
     private MetodosDados modeloDados;
 
     @Inject
     public ModeloData(ModeloDados modeloDados){
+        this.modeloDados = modeloDados;
     }
 
     public Date getDataAtual(){
@@ -253,7 +251,6 @@ public class ModeloData implements MetodosData {
     }
 
     public double getPontosDia(Date data) {
-        List<EntradaPontos> entradasPontoDmodeloDados= modeloDados.getEntradasPontosData(data);
         double pontos = 0;
         for (EntradaPontos entradaPontos: modeloDados.getEntradasPontosData(data)){
             pontos+= entradaPontos.getPontosMultiplicados();

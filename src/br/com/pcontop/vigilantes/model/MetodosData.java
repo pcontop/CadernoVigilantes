@@ -7,11 +7,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * Created with IntelliJ IDEA.
+ * Métodos de negócio com datas.
  * User: Paulo
  * Date: 12/05/12
  * Time: 20:00
- * Define os métodos necessários para se lidar com os dados de pontuação por data. Retorna objetos de EntradaPontos, LimitePontos, DiaSemanaReuniao.
  */
 public interface  MetodosData {
 

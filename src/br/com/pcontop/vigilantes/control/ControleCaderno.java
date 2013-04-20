@@ -1,13 +1,7 @@
 package br.com.pcontop.vigilantes.control;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.widget.Toast;
-import br.com.pcontop.vigilantes.R;
-import br.com.pcontop.vigilantes.control.arquivos.NomesDeArquivos;
-import br.com.pcontop.vigilantes.control.popups.BusqueDataAtual;
-import br.com.pcontop.vigilantes.control.popups.BusqueDiaSemanaReuniao;
-import br.com.pcontop.vigilantes.control.popups.BusqueLimitesPontos;
+import br.com.pcontop.vigilantes.control.popups.ControlePopups;
 import br.com.pcontop.vigilantes.model.MetodosDados;
 import br.com.pcontop.vigilantes.model.MetodosData;
 import br.com.pcontop.vigilantes.model.MetodosString;
@@ -15,183 +9,99 @@ import br.com.pcontop.vigilantes.model.SemanaOcupadaException;
 import br.com.pcontop.vigilantes.model.bean.DiaSemanaReuniao;
 import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
 import br.com.pcontop.vigilantes.model.bean.LimitePontos;
-import br.com.pcontop.vigilantes.model.excel.CrieExcel;
-import br.com.pcontop.vigilantes.model.excel.ImpossivelCriarDiretorioException;
-import br.com.pcontop.vigilantes.view.MostreSobre;
 import br.com.pcontop.vigilantes.view.PaginaSistema;
 import com.google.inject.Inject;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ * Classe de controle, que serve de facade aos métodos de regras de negócio, e para as regras de apresentação e popup.
+ * para as activities.
  * User: Paulo
  * Date: 16/04/12
  * Time: 21:05
- * Classe de controle, que define o acesso aos métodos de dados que definem as regras de negócio.
  */
 public class ControleCaderno {
 
-    @Inject
-    CrieExcel crieExcel;
+    private ControleRegrasApresentacao controleRegrasApresentacao;
+    private ControlePopups controlePopups;
+    private MetodosData metodosData;
+    private MetodosString metodosString;
+    private MetodosDados metodosDados;
 
     @Inject
-    NomesDeArquivos nomesDeArquivos;
-
-    @Inject
-    Context context;
-
-    @Inject
-    MetodosData metodosData;
-
-    @Inject
-    MetodosString metodosString;
-
-    @Inject
-    MetodosDados metodosDados;
-
-    @Inject
-    public ControleCaderno(){
-
+    public ControleCaderno(
+                           MetodosDados metodosDados,
+                           MetodosData metodosData,
+                           MetodosString metodosString,
+                           ControleRegrasApresentacao controleRegrasApresentacao,
+                           ControlePopups controlePopups){
+        this.metodosDados = metodosDados;
+        this.metodosData = metodosData;
+        this.metodosString = metodosString;
+        this.controleRegrasApresentacao = controleRegrasApresentacao;
+        this.controlePopups = controlePopups;
     }
 
     public void toast(String mensagem){
-        Toast.makeText(context, mensagem, Toast.LENGTH_SHORT).show();
-    }
-
-    public void toast(int resourceId){
-        toast(context.getText(resourceId).toString());
+        controleRegrasApresentacao.toast(mensagem);
     }
 
     public int getCorData(Date data){
-        LimitePontos limitePontos;
-        long pontosMaximosDia;
-        try {
-            limitePontos = metodosDados.getLimitePontos(data);
-        } catch (ParseException e) {
-            return 0;
-        }
-        double pontosDia = metodosData.getPontosDia(data);
-        if (limitePontos==null){
-            return Color.WHITE;
-        }
-        pontosMaximosDia = metodosData.getPontosMaximosDiaContandoExtras(data);
-        if (pontosDia>limitePontos.getPontosDia() && pontosDia <= pontosMaximosDia) {
-            return Color.YELLOW;
-        }
 
-        if (pontosDia>limitePontos.getPontosDia() && pontosDia > pontosMaximosDia) {
-            return Color.RED;
-        }
-
-        if (pontosDia <= limitePontos.getPontosDia()){
-            return Color.GREEN;
-        }
-        return 0;
+        return controleRegrasApresentacao.getCorData(data);
     }
 
     public void mostreSobre(PaginaSistema paginaSistema) {
-        MostreSobre mostreSobre =new MostreSobre(paginaSistema, paginaSistema, this);
-        mostreSobre.executar();
+        controlePopups.mostreSobre(paginaSistema, this);
     }
 
     public void busqueDiaSemanaReuniao(PaginaSistema paginaSistema) {
-        BusqueDiaSemanaReuniao busqueDiaSemanaReuniao = new BusqueDiaSemanaReuniao(paginaSistema, paginaSistema, metodosData.getDataAtual(), this);
-        busqueDiaSemanaReuniao.executar();
+        controlePopups.busqueDiaSemanaReuniao(paginaSistema, this);
     }
 
     public void busqueDiaSemanaReuniao(PaginaSistema paginaSistema, int diaSemana) {
-        BusqueDiaSemanaReuniao busqueDiaSemanaReuniao = new BusqueDiaSemanaReuniao(paginaSistema, paginaSistema, metodosData.getDataAtual(), diaSemana, this);
-        busqueDiaSemanaReuniao.executar();
+        controlePopups.busqueDiaSemanaReuniao(paginaSistema, diaSemana, this);
     }
 
     public void busqueLimitePontos(PaginaSistema paginaSistema, Date data) {
-        if (metodosData.isDataEmPeriodoLimiteAlteravel(data)){
-            BusqueLimitesPontos busqueLimitesPontos = new BusqueLimitesPontos(paginaSistema, paginaSistema, data, this);
-            busqueLimitesPontos.executar();
-        } else {
-            toast(paginaSistema.getString(R.string.data_invalida));
-        }
+        controlePopups.busqueLimitePontos(paginaSistema, data, this);
     }
 
     public void busqueDataAtual(PaginaSistema paginaSistema) {
-        BusqueDataAtual busqueDataAtual = new BusqueDataAtual(paginaSistema,  paginaSistema, this);
-        busqueDataAtual.executar();
+        controlePopups.busqueDataAtual(paginaSistema, this);
     }
 
     public void definaDiaAtual(Date time) {
-        DataAtual.forceDataAtual(time);
+        controleRegrasApresentacao.definaDiaAtual(time);
     }
 
     public void chequeSeDiaSemanaReuniaoEstaDefinido(PaginaSistema paginaSistema) {
-        try {
-            DiaSemanaReuniao diaSemanaReuniao = metodosDados.getDiaSemanaReuniao(metodosData.getDataAtual());
-            if (diaSemanaReuniao ==null){
-                busqueDiaSemanaReuniao(paginaSistema);
-            }
-        } catch (ParseException e) {
-            toast(R.string.erro_abertura_dia_semana);
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Verifica o limite de pontos para uma data, ou retorna um objeto vazio caso contrário.
-     */
-    public LimitePontos getLimitePontosOuNovo(Date dataDestino) {
-        LimitePontos limitePontos=null;
-        try {
-            limitePontos = metodosDados.getLimitePontos(dataDestino);
-            if (limitePontos==null){
-                limitePontos = metodosData.getNovoLimitePontos(dataDestino);
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return limitePontos;
+        controleRegrasApresentacao.chequeSeDiaSemanaReuniaoEstaDefinido(paginaSistema, controlePopups, this);
     }
 
     public LimitePontos getLimiteSemanaAtualOuProxima(Date dataDestino) {
-        if (metodosData.isDataProximaReuniao(dataDestino)){
-            dataDestino = metodosData.adicioneDiasAData(dataDestino, 1);
-        }
-        return getLimitePontosOuNovo(dataDestino);
+        return controleRegrasApresentacao.getLimiteSemanaAtualOuProxima(dataDestino);
     }
 
     public EntradaPontos pesquiseEntradaPontosPorNome(String entrada) {
-        EntradaPontos entradaEscolhida= null;
-        List<EntradaPontos> entradasPontos = metodosDados.pesquiseEntradasPontosPorNome(entrada);
-        for (EntradaPontos entradaPontos: entradasPontos){
-            if (entradaEscolhida==null || entradaEscolhida.getId() > entradaPontos.getId()){
-                entradaEscolhida = entradaPontos;
-            }
-        }
-        return entradaEscolhida;
+        return controleRegrasApresentacao.pesquiseEntradaPontosPorNome(entrada);
     }
 
     public void exporteExcel(List<EntradaPontos> entradas){
-        try {
-            crieExcel.criePlanilha(entradas, nomesDeArquivos.nomeArquivoPadrao());
-        } catch (IOException e) {
-            toast(R.string.erro_geracao_planilha);
-        } catch (ImpossivelCriarDiretorioException e) {
-            toast(R.string.erro_acesso_diretorio);
-        }
-        String inicioMensagem = context.getText(R.string.excel_gerado).toString();
-        toast(inicioMensagem + getUltimaPlanilhaCriada().getAbsolutePath());
+        controleRegrasApresentacao.exporteExcel(entradas);
     }
 
     public void exporteExcelEntradasPontos(){
-        exporteExcel(metodosDados.pesquiseTodasEntradas());
+        exporteExcel(metodosDados.getTodasEntradas());
     }
 
     public File getUltimaPlanilhaCriada(){
-        return crieExcel.getUltimaPlanilha();
+        return controleRegrasApresentacao.getUltimaPlanilhaCriada();
     }
 
     public void definaLimitePontos(LimitePontos limitePontosRef) throws SemanaOcupadaException, ParseException {
@@ -271,10 +181,10 @@ public class ControleCaderno {
     }
 
     public Context getContext(){
-        return context;
+        return controleRegrasApresentacao.getContext();
     }
 
     public List<EntradaPontos> getTodasEntradasPontos(){
-        return metodosDados.pesquiseTodasEntradas();
+        return metodosDados.getTodasEntradas();
     }
 }

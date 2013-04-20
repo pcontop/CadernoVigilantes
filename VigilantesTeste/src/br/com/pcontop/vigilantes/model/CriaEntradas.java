@@ -13,9 +13,8 @@ import java.util.List;
  * User: Paulo
  * Date: 17/04/13
  * Time: 14:53
- * To change this template use File | Settings | File Templates.
  */
-public class CriaEntradasTeste {
+public class CriaEntradas {
 
     private Date parseDate(String date){
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
@@ -91,8 +90,8 @@ public class CriaEntradasTeste {
         return listaEntradas;
     }
 
-    public EntradaPontos getEntradaPontos(long id){
-        for (EntradaPontos entradaPontos: crieEntradasPontos()){
+    public EntradaPontos getEntradaPontos(long id, List<EntradaPontos> entradas){
+        for (EntradaPontos entradaPontos: entradas){
             if (entradaPontos.getId()==id){
                 return entradaPontos;
             }
@@ -100,8 +99,24 @@ public class CriaEntradasTeste {
         return null;
     }
 
+
+    public EntradaPontos getEntradaPontos(EntradaPontos entradaPontos, List<EntradaPontos> entradas){
+        return getEntradaPontos(entradaPontos.getId(), entradas);
+    }
+
     public EntradaPontos getEntradaPontos(EntradaPontos entradaPontos){
-        return getEntradaPontos(entradaPontos.getId());
+        return getEntradaPontos(entradaPontos, crieEntradasPontos());
+    }
+
+    public EntradaPontos crieEntradaPontosTardia(){
+        EntradaPontos entradaPontos = new EntradaPontos();
+        entradaPontos.setDataInsercao(new Date());
+        entradaPontos.setNome("Arroz");
+        entradaPontos.setQuantidade(3.1);
+        entradaPontos.setPontos(1.1);
+        entradaPontos.setId(5);
+
+        return entradaPontos;
     }
 
 }

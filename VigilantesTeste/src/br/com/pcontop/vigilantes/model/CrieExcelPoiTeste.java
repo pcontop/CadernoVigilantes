@@ -13,10 +13,6 @@ import br.com.pcontop.vigilantes.view.PaginaDia;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,7 +27,7 @@ public class CrieExcelPoiTeste extends ActivityInstrumentationTestCase2<PaginaDi
     ControleCaderno controleCaderno;
     MetodosDados metodosDados;
     List<EntradaPontos> entradas;
-    CriaEntradasTeste criaEntradasTeste;
+    CriaEntradas criaEntradas;
 
     public CrieExcelPoiTeste() {
         super("br.com.pcontop.vigilantes", PaginaDia.class);
@@ -59,8 +55,8 @@ public class CrieExcelPoiTeste extends ActivityInstrumentationTestCase2<PaginaDi
         controleCaderno = getActivity().getControleCaderno();
         crieExcel = new CrieExcelPoiXls1(new DiretoriosArquivosAndroid(controleCaderno.getContext()));
         metodosDados = controleCaderno.getMetodosDados();
-        criaEntradasTeste = new CriaEntradasTeste();
-        entradas = criaEntradasTeste.crieEntradasPontos();
+        criaEntradas = new CriaEntradas();
+        entradas = criaEntradas.crieEntradasPontos();
         //Log.v("CrieExcelPoiTeste Estado de gravação no externo: " , isExternalStorageWritable()+ "");
 
     }
@@ -101,7 +97,7 @@ public class CrieExcelPoiTeste extends ActivityInstrumentationTestCase2<PaginaDi
     @UiThreadTest
     public void testCriacaoBindComBase(){
         assertTrue(isExternalStorageWritable());
-        List<EntradaPontos> entradasBase = metodosDados.pesquiseTodasEntradas();
+        List<EntradaPontos> entradasBase = metodosDados.getTodasEntradas();
         assertNotNull(entradasBase);
         assertTrue(entradasBase.size()>0);
 

@@ -7,23 +7,23 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ * Implementação dos métodos de pesquisa por String.
  * User: Paulo
  * Date: 20/10/12
  * Time: 23:59
- * To change this template use File | Settings | File Templates.
  */
 public class ModeloString implements MetodosString {
-    @Inject
+
     private MetodosDados metodosDados;
 
     @Inject
-    public ModeloString() {
+    public ModeloString(MetodosDados metodosDados) {
+        this.metodosDados = metodosDados;
     }
 
     @Override
     public String[] pesquiseNomesEntradasPontos() {
-        List<EntradaPontos> entradas = metodosDados.pesquiseTodasEntradas();
+        List<EntradaPontos> entradas = metodosDados.getTodasEntradas();
         HashSet<String> setNomesEstradas = new HashSet<String>();
         String[] nomesEntradas = new String[1];
         for (EntradaPontos entrada:entradas){

@@ -1,9 +1,7 @@
 package br.com.pcontop.vigilantes.model;
 
-import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.UiThreadTest;
-import br.com.pcontop.vigilantes.control.ControleCaderno;
 import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
 import br.com.pcontop.vigilantes.view.PaginaDia;
 
@@ -16,11 +14,7 @@ import java.util.List;
  * Time: 11:12
  */
 public class BaseTesteEntradaPontosVersao2 extends ActivityInstrumentationTestCase2<PaginaDia> {
-    PaginaDia paginaDia;
-    ControleCaderno controleCaderno;
-    Context context;
-    CriaEntradasTeste criaEntradasTeste;
-    MetodosDados metodosDados;
+    BaseTesteEntradaPontos baseTesteEntradaPontos;
 
     public BaseTesteEntradaPontosVersao2() {
         super("br.com.pcontop.vigilantes", PaginaDia.class);
@@ -29,27 +23,8 @@ public class BaseTesteEntradaPontosVersao2 extends ActivityInstrumentationTestCa
     @Override
     public void setUp() throws Exception{
         super.setUp();
-        inicializeObjetos();
+        baseTesteEntradaPontos = new BaseTesteEntradaPontos(getActivity());
 
-    }
-
-    private void inicializeObjetos() {
-        paginaDia = getActivity();
-        controleCaderno = paginaDia.getControleCaderno();
-        context = paginaDia.getBaseContext();
-        metodosDados = controleCaderno.getMetodosDados();
-        criaEntradasTeste = new CriaEntradasTeste();
-    }
-
-    private void insiraEntradasBase(){
-        List<EntradaPontos> entradas = criaEntradasTeste.crieEntradasPontos();
-        insiraEntradasBase(entradas);
-    }
-
-    private void insiraEntradasBase(List<EntradaPontos> entradas){
-        for (EntradaPontos entradaPontos:entradas){
-            controleCaderno.insiraOuAtualizeEntradaPontos(entradaPontos);
-        }
     }
 
     /**
@@ -57,11 +32,11 @@ public class BaseTesteEntradaPontosVersao2 extends ActivityInstrumentationTestCa
      */
     @UiThreadTest
     public void testEntradaPontosRegressaoInsere(){
-        //entradas = metodosDados.pesquiseTodasEntradas();
-        insiraEntradasBase();
-        List<EntradaPontos> entradas = controleCaderno.getTodasEntradasPontos();
+        //entradas = metodosDados.getTodasEntradas();
+        baseTesteEntradaPontos.insiraEntradasBase();
+        List<EntradaPontos> entradas = baseTesteEntradaPontos.controleCaderno.getTodasEntradasPontos();
         assertNotNull(entradas);
-        assertEquals(entradas.size(), criaEntradasTeste.crieEntradasPontos().size());
+        assertEquals(entradas.size(), baseTesteEntradaPontos.criaEntradas.crieEntradasPontos().size());
     }
 
     /**
@@ -69,10 +44,10 @@ public class BaseTesteEntradaPontosVersao2 extends ActivityInstrumentationTestCa
      */
     @UiThreadTest
     public void testEntradaPontosRegressaoInsereOuAtualiza(){
-        List<EntradaPontos> entradas = controleCaderno.getTodasEntradasPontos();
+        List<EntradaPontos> entradas = baseTesteEntradaPontos.controleCaderno.getTodasEntradasPontos();
         long quantidade = entradas.size();
-        insiraEntradasBase();
-        long quantidade2 = controleCaderno.getTodasEntradasPontos().size();
+        baseTesteEntradaPontos.insiraEntradasBase();
+        long quantidade2 = baseTesteEntradaPontos.controleCaderno.getTodasEntradasPontos().size();
         assertEquals(quantidade, quantidade2);
     }
 
@@ -81,9 +56,9 @@ public class BaseTesteEntradaPontosVersao2 extends ActivityInstrumentationTestCa
      */
     @UiThreadTest
     public void testTiposCamposVersao(){
-       List<EntradaPontos> entradasBase = controleCaderno.getTodasEntradasPontos();
+       List<EntradaPontos> entradasBase = baseTesteEntradaPontos.controleCaderno.getTodasEntradasPontos();
        for (EntradaPontos entradaBase:entradasBase){
-           EntradaPontos entradaLista = criaEntradasTeste.getEntradaPontos(entradaBase);
+           EntradaPontos entradaLista = baseTesteEntradaPontos.criaEntradas.getEntradaPontos(entradaBase);
            double quantidadeArredondada;
            //double pontosArredondados;
            quantidadeArredondada = Math.floor(entradaLista.getQuantidade());

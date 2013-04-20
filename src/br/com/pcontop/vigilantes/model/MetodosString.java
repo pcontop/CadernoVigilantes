@@ -1,7 +1,7 @@
 package br.com.pcontop.vigilantes.model;
 
 /**
- * Created with IntelliJ IDEA.
+ * Métodos de negócio com texto.
  * User: Paulo
  * Date: 20/10/12
  * Time: 23:56

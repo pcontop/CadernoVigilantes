@@ -1,12 +1,16 @@
 package br.com.pcontop.vigilantes.control.modulo;
 
 import br.com.pcontop.vigilantes.control.ControleCaderno;
+import br.com.pcontop.vigilantes.control.ControleRegrasApresentacao;
+import br.com.pcontop.vigilantes.control.ControleRegrasApresentacaoImpl;
 import br.com.pcontop.vigilantes.control.arquivos.NomesDeArquivos;
 import br.com.pcontop.vigilantes.control.arquivos.NomesDeArquivosExcel;
 import br.com.pcontop.vigilantes.control.comportamento.ComportamentoPaginaDia;
 import br.com.pcontop.vigilantes.control.comportamento.ComportamentoPaginaDiaCelular;
 import br.com.pcontop.vigilantes.control.comportamento.ComportamentoPaginaMes;
 import br.com.pcontop.vigilantes.control.comportamento.ComportamentoPaginaMesCelular;
+import br.com.pcontop.vigilantes.control.popups.ControlePopups;
+import br.com.pcontop.vigilantes.control.popups.ControlePopupsImpl;
 import br.com.pcontop.vigilantes.model.*;
 import br.com.pcontop.vigilantes.model.dao.*;
 import br.com.pcontop.vigilantes.model.excel.CrieExcel;
@@ -16,11 +20,10 @@ import br.com.pcontop.vigilantes.model.excel.DiretoriosArquivosAndroid;
 import roboguice.config.AbstractAndroidModule;
 
 /**
- * Created with IntelliJ IDEA.
+ * Modulo de amarração para o Roboguice. Define quais injeções serão realizadas.
  * User: Paulo
  * Date: 31/05/12
  * Time: 16:25
- * Mapeia as injeções de dependência do projeto.
  */
 public class ModuloCaderno extends AbstractAndroidModule {
     @Override
@@ -36,8 +39,10 @@ public class ModuloCaderno extends AbstractAndroidModule {
         bind(DiretoriosArquivos.class).to(DiretoriosArquivosAndroid.class);
         bind(ComportamentoPaginaDia.class).to(ComportamentoPaginaDiaCelular.class);
         bind(ComportamentoPaginaMes.class).to(ComportamentoPaginaMesCelular.class);
-        bind(MetodosString.class).to(ModeloString.class);
-        bind(MetodosData.class).to(ModeloData.class);
-        bind(MetodosDados.class).to(ModeloDados.class);
+        bind(MetodosString.class).to(ModeloString.class).asEagerSingleton();
+        bind(MetodosData.class).to(ModeloData.class).asEagerSingleton();
+        bind(MetodosDados.class).to(ModeloDados.class).asEagerSingleton();
+        bind(ControlePopups.class).to(ControlePopupsImpl.class);
+        bind(ControleRegrasApresentacao.class).to(ControleRegrasApresentacaoImpl.class);
     }
 }

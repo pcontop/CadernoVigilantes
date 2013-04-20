@@ -9,11 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ * Métodos de acesso a base.
  * User: Paulo
  * Date: 14/04/13
  * Time: 11:20
- * To change this template use File | Settings | File Templates.
  */
 public interface MetodosDados {
 
@@ -37,8 +36,6 @@ public interface MetodosDados {
 
     List<EntradaPontos> pesquiseEntradasPontosPorNome(String entrada);
 
-    List<EntradaPontos> pesquiseTodasEntradas();
-
-    void removaTabelaEntradaPontos();
+    List<EntradaPontos> getTodasEntradas();
 
 }
