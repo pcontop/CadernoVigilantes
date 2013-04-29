@@ -1,8 +1,8 @@
 package br.com.pcontop.vigilantes.model;
 
-import br.com.pcontop.vigilantes.model.bean.DiaSemanaReuniao;
-import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
-import br.com.pcontop.vigilantes.model.bean.LimitePontos;
+import br.com.pcontop.vigilantes.shared.bean.DiaSemanaReuniao;
+import br.com.pcontop.vigilantes.shared.bean.EntradaPontos;
+import br.com.pcontop.vigilantes.shared.bean.LimitePontos;
 
 import java.text.ParseException;
 import java.util.Date;

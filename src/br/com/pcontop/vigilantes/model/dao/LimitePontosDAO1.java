@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import br.com.pcontop.vigilantes.control.ContextoGlobal;
 import br.com.pcontop.vigilantes.model.SemanaOcupadaException;
-import br.com.pcontop.vigilantes.model.bean.LimitePontos;
+import br.com.pcontop.vigilantes.shared.bean.LimitePontos;
 import com.google.inject.Inject;
 
 import java.text.ParseException;

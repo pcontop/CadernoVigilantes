@@ -7,7 +7,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import br.com.pcontop.vigilantes.R;
-import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
+import br.com.pcontop.vigilantes.shared.bean.EntradaPontos;
 
 /**
  * This is a simple framework for a test of an Application.  See

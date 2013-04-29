@@ -5,7 +5,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.UiThreadTest;
 import android.util.Log;
 import br.com.pcontop.vigilantes.control.ControleCaderno;
-import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
+import br.com.pcontop.vigilantes.shared.bean.EntradaPontos;
 import br.com.pcontop.vigilantes.model.excel.CrieExcelPoiXls1;
 import br.com.pcontop.vigilantes.model.excel.DiretoriosArquivosAndroid;
 import br.com.pcontop.vigilantes.model.excel.ImpossivelCriarDiretorioException;

@@ -1,4 +1,4 @@
-package br.com.pcontop.vigilantes.model.bean;
+package br.com.pcontop.vigilantes.shared.bean;
 
 import java.util.Date;
 
@@ -17,6 +17,8 @@ public class EntradaPontos {
     private Date dataInsercao;
     private double pontos;
     private double quantidade;
+    private Date dataInsercaoServidor;
+    private long idServidor=-1;
 
     public String getNome() {
         return nome;
@@ -66,5 +68,21 @@ public class EntradaPontos {
         if (getDataInsercao()==null){
             setDataInsercao(dataInicial);
         }
+    }
+
+    public Date getDataInsercaoServidor() {
+        return dataInsercaoServidor;
+    }
+
+    public void setDataInsercaoServidor(Date dataInsercaoServidor) {
+        this.dataInsercaoServidor = dataInsercaoServidor;
+    }
+
+    public long getIdServidor() {
+        return idServidor;
+    }
+
+    public void setIdServidor(long idServidor) {
+        this.idServidor = idServidor;
     }
 }

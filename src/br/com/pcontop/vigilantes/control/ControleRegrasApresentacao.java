@@ -2,8 +2,8 @@ package br.com.pcontop.vigilantes.control;
 
 import android.content.Context;
 import br.com.pcontop.vigilantes.control.popups.ControlePopups;
-import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
-import br.com.pcontop.vigilantes.model.bean.LimitePontos;
+import br.com.pcontop.vigilantes.shared.bean.EntradaPontos;
+import br.com.pcontop.vigilantes.shared.bean.LimitePontos;
 import br.com.pcontop.vigilantes.view.PaginaSistema;
 
 import java.io.File;

@@ -2,7 +2,7 @@ package br.com.pcontop.vigilantes.model;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.UiThreadTest;
-import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
+import br.com.pcontop.vigilantes.shared.bean.EntradaPontos;
 import br.com.pcontop.vigilantes.view.PaginaDia;
 
 import java.util.List;

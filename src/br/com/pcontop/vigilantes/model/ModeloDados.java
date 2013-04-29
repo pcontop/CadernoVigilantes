@@ -1,8 +1,8 @@
 package br.com.pcontop.vigilantes.model;
 
-import br.com.pcontop.vigilantes.model.bean.DiaSemanaReuniao;
-import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
-import br.com.pcontop.vigilantes.model.bean.LimitePontos;
+import br.com.pcontop.vigilantes.shared.bean.DiaSemanaReuniao;
+import br.com.pcontop.vigilantes.shared.bean.EntradaPontos;
+import br.com.pcontop.vigilantes.shared.bean.LimitePontos;
 import br.com.pcontop.vigilantes.model.dao.DiaSemanaReuniaoSQL;
 import br.com.pcontop.vigilantes.model.dao.EntradaPontosSQL;
 import br.com.pcontop.vigilantes.model.dao.LimitePontosSQL;

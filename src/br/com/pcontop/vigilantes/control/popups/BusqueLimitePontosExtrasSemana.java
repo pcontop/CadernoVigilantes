@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import br.com.pcontop.vigilantes.R;
 import br.com.pcontop.vigilantes.control.ControleCaderno;
 import br.com.pcontop.vigilantes.model.SemanaOcupadaException;
-import br.com.pcontop.vigilantes.model.bean.LimitePontos;
+import br.com.pcontop.vigilantes.shared.bean.LimitePontos;
 import br.com.pcontop.vigilantes.view.NumberPicker;
 import br.com.pcontop.vigilantes.view.Observer;
 

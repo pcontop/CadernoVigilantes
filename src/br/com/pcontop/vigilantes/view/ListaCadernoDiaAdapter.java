@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import br.com.pcontop.vigilantes.R;
 import br.com.pcontop.vigilantes.control.ConversaoLocale;
-import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
+import br.com.pcontop.vigilantes.shared.bean.EntradaPontos;
 
 import java.util.List;
 

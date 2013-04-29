@@ -1,6 +1,6 @@
 package br.com.pcontop.vigilantes.model.dao;
 
-import br.com.pcontop.vigilantes.model.bean.DiaSemanaReuniao;
+import br.com.pcontop.vigilantes.shared.bean.DiaSemanaReuniao;
 
 import java.text.ParseException;
 import java.util.Date;

@@ -12,8 +12,8 @@ import br.com.pcontop.vigilantes.control.comportamento.ComportamentoPaginaDia;
 import br.com.pcontop.vigilantes.control.validacao.ValidacaoCampo;
 import br.com.pcontop.vigilantes.control.validacao.ValidacaoCampoDoubleNaoVazio;
 import br.com.pcontop.vigilantes.control.validacao.ValidacaoCampoTextoNaoVazio;
-import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
-import br.com.pcontop.vigilantes.model.bean.LimitePontos;
+import br.com.pcontop.vigilantes.shared.bean.EntradaPontos;
+import br.com.pcontop.vigilantes.shared.bean.LimitePontos;
 import com.google.inject.Inject;
 import roboguice.inject.InjectView;
 

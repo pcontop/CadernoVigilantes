@@ -1,7 +1,7 @@
 package br.com.pcontop.vigilantes.model.dao;
 
 import br.com.pcontop.vigilantes.model.SemanaOcupadaException;
-import br.com.pcontop.vigilantes.model.bean.LimitePontos;
+import br.com.pcontop.vigilantes.shared.bean.LimitePontos;
 
 import java.text.ParseException;
 import java.util.Date;

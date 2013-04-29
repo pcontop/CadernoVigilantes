@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import br.com.pcontop.vigilantes.R;
 import br.com.pcontop.vigilantes.control.ControleCaderno;
-import br.com.pcontop.vigilantes.model.bean.DiaSemanaReuniao;
+import br.com.pcontop.vigilantes.shared.bean.DiaSemanaReuniao;
 import br.com.pcontop.vigilantes.view.Observer;
 
 import java.text.ParseException;

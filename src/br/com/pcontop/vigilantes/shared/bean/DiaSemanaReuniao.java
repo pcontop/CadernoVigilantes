@@ -1,4 +1,4 @@
-package br.com.pcontop.vigilantes.model.bean;
+package br.com.pcontop.vigilantes.shared.bean;
 
 import java.io.Serializable;
 import java.util.Date;

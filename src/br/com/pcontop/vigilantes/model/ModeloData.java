@@ -1,9 +1,9 @@
 package br.com.pcontop.vigilantes.model;
 
 import br.com.pcontop.vigilantes.control.DataAtual;
-import br.com.pcontop.vigilantes.model.bean.DiaSemanaReuniao;
-import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
-import br.com.pcontop.vigilantes.model.bean.LimitePontos;
+import br.com.pcontop.vigilantes.shared.bean.DiaSemanaReuniao;
+import br.com.pcontop.vigilantes.shared.bean.EntradaPontos;
+import br.com.pcontop.vigilantes.shared.bean.LimitePontos;
 import com.google.inject.Inject;
 
 import java.text.ParseException;

@@ -1,6 +1,6 @@
 package br.com.pcontop.vigilantes.model;
 
-import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
+import br.com.pcontop.vigilantes.shared.bean.EntradaPontos;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

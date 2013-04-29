@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import br.com.pcontop.vigilantes.control.ContextoGlobal;
-import br.com.pcontop.vigilantes.model.bean.DiaSemanaReuniao;
+import br.com.pcontop.vigilantes.shared.bean.DiaSemanaReuniao;
 import com.google.inject.Inject;
 
 import java.text.ParseException;

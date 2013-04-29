@@ -1,6 +1,6 @@
 package br.com.pcontop.vigilantes.model.dao;
 
-import br.com.pcontop.vigilantes.model.bean.EntradaPontos;
+import br.com.pcontop.vigilantes.shared.bean.EntradaPontos;
 
 import java.util.ArrayList;
 import java.util.Date;
